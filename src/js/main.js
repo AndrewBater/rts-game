@@ -3,6 +3,7 @@
 const PLAYER_START_UNITS = 9;
 var canvas, context, intervalId;
 var playerUnits = [];
+var selectedUnits = [];
 
 window.onload = function() {
     canvas = document.getElementById("GameCanvas");
@@ -34,6 +35,10 @@ function drawAll() {
     paintRect(0, 0, canvas.width, canvas.height, "black");
     for (var i = 0; i < PLAYER_START_UNITS; i++) {
         playerUnits[i].draw();
+    }
+
+    for (var i = 0; i < selectedUnits.length; i++) {
+        selectedUnits[i].drawSelectedBox();
     }
     if (isSelecting) {
         paintOutlineRect(selectionStartX, selectionStartY, selectionEndX, selectionEndY, "yellow");

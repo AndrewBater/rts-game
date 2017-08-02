@@ -21,6 +21,16 @@ function handleMouseDown(evt) {
 
 function handleMouseUp(evt) {
     isSelecting = false;
+
+    selectedUnits = [];
+
+    for (var i = 0; i < playerUnits.length; i++) {
+        if (playerUnits[i].isInArea(selectionStartX, selectionStartY, selectionEndX, selectionEndY)) {
+            selectedUnits.push(playerUnits[i]);
+        }
+    }
+
+    db("selected " + selectedUnits.length + " units");
 }
 
 function handleMouseMove(evt) {
