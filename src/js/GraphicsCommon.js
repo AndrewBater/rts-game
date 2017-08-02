@@ -24,3 +24,10 @@ function paintBitmapCentredWithRotation(bitmap, atX, atY, withAng) {
     context.drawImage(bitmap, -bitmap.width/2, -bitmap.height/2);
     context.restore();
 }
+
+function paintOutlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {
+    context.strokeStyle = lineColor;
+    context.beginPath();
+    context.rect(topLeftX, topLeftY, boxWidth - topLeftX, boxHeight - topLeftY);
+    context.stroke(); 
+}

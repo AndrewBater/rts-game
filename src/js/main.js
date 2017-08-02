@@ -8,7 +8,7 @@ window.onload = function() {
     canvas = document.getElementById("GameCanvas");
     context = canvas.getContext("2d");
 
-    canvas.addEventListener("mousedown", handleMouseDown);
+    setupInput();
 
     for (var i = 0; i < PLAYER_START_UNITS; i++) {
         var unit = new unitClass();
@@ -17,21 +17,6 @@ window.onload = function() {
     }
 
     intervalId = setInterval(updateAll, 1000/30);
-}
-
-function handleMouseDown(evt) {
-    updateMousePosition(evt);
-}
-
-function updateMousePosition(evt) {
-    var rect = canvas.getBoundingClientRect();
-    var root = document.documentElement;
-
-    var mouseX = evt.clientX - rect.left - root.scrollLeft;
-    var mouseY = evt.clientY - rect.top - root.scrollTop;
-    for(var i=0; i < playerUnits.length; i++) {
-        playerUnits[i].setDest(mouseX, mouseY);
-    }
 }
 
 function updateAll() {
@@ -50,4 +35,12 @@ function drawAll() {
     for (var i = 0; i < PLAYER_START_UNITS; i++) {
         playerUnits[i].draw();
     }
+    if (isSelecting) {
+        paintOutlineRect(selectionStartX, selectionStartY, selectionEndX, selectionEndY, "yellow");
+    }
+}
+
+function db(message) {
+    var debugLog = document.getElementById("debug-log");
+    debugLog.innerHTML = message;
 }
