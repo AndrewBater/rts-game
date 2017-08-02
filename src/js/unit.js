@@ -38,7 +38,22 @@ function unitClass() {
         this.destY = nearY + Math.random() * UNIT_MAX_DIST_FROM_TARGET;
     }
 
-    this.isInArea = function(topX, topY, bottomX, bottomY) {
+    this.isInArea = function(x1, y1, x2, y2) {
+        var topX, topY, bottomX, bottomY;
+        if (x1 < x2) {
+            topX = x1;
+            bottomX = x2;
+        } else {
+            topX = x2;
+            bottomX = x1;
+        }
+        if (y1 < y2) {
+            topY = y1;
+            bottomY = y2;
+        } else {
+            topY = y2;
+            bottomY = y1;
+        }
         if (this.x < topX || this.x > bottomX || this.y < topY || this.y > bottomY) {
             return false;
         }
