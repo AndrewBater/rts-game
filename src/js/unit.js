@@ -17,17 +17,17 @@ function unitClass() {
     }
 
     this.move = function() {
-        if (this.x > this.destX) {
-            this.x -= UNIT_MOVE_SPEED;
-        }
-        if (this.x < this.destX) {
-            this.x += UNIT_MOVE_SPEED;
-        }
-        if (this.y > this.destY) {
-            this.y -= UNIT_MOVE_SPEED;
-        }
-        if (this.y < this.destY) {
-            this.y += UNIT_MOVE_SPEED;
+        var deltaX = this.destX - this.x;
+        var deltaY = this.destY - this.y;
+        var distanceToMove = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+        var moveX = UNIT_MOVE_SPEED * deltaX/distanceToMove;
+        var moveY = UNIT_MOVE_SPEED * deltaY/distanceToMove;
+        if (distanceToMove > UNIT_MOVE_SPEED) {
+            this.x += moveX;
+            this.y += moveY;
+        } else {
+            this.x = this.destX;
+            this.y = this.destY;
         }
     }
 

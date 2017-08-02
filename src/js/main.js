@@ -1,7 +1,8 @@
 "use strict";
 
+const PLAYER_START_UNITS = 9;
 var canvas, context, intervalId;
-var testUnit;
+var playerUnits = [];
 
 window.onload = function() {
     canvas = document.getElementById("GameCanvas");
@@ -9,8 +10,11 @@ window.onload = function() {
 
     canvas.addEventListener("mousedown", handleMouseDown);
 
-    testUnit = new unitClass();
-    testUnit.reset();
+    for (var i = 0; i < PLAYER_START_UNITS; i++) {
+        var unit = new unitClass();
+        unit.reset();
+        playerUnits.push(unit);
+    }
 
     intervalId = setInterval(updateAll, 1000/30);
 }
@@ -25,9 +29,11 @@ function updateMousePosition(evt) {
 
     var mouseX = evt.clientX - rect.left - root.scrollLeft;
     var mouseY = evt.clientY - rect.top - root.scrollTop;
-
-    testUnit.destX = mouseX;
-    testUnit.destY = mouseY;
+    for(var i=0; i < playerUnits.length; i++) {
+        var eachUnit = playerUnits[i];
+        eachUnit.destX = mouseX;
+        eachUnit.destY = mouseY;
+    }
 }
 
 function updateAll() {
@@ -36,10 +42,14 @@ function updateAll() {
 }
 
 function moveAll() {
-    testUnit.move();
+    for (var i = 0; i < PLAYER_START_UNITS; i++) {
+        playerUnits[i].move();
+    }
 }
 
 function drawAll() {
     paintRect(0, 0, canvas.width, canvas.height, "black");
-    testUnit.draw();
+    for (var i = 0; i < PLAYER_START_UNITS; i++) {
+        playerUnits[i].draw();
+    }
 }
