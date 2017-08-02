@@ -30,9 +30,7 @@ function updateMousePosition(evt) {
     var mouseX = evt.clientX - rect.left - root.scrollLeft;
     var mouseY = evt.clientY - rect.top - root.scrollTop;
     for(var i=0; i < playerUnits.length; i++) {
-        var eachUnit = playerUnits[i];
-        eachUnit.destX = mouseX;
-        eachUnit.destY = mouseY;
+        playerUnits[i].setDest(mouseX, mouseY);
     }
 }
 

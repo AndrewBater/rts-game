@@ -2,6 +2,7 @@
 
 const UNIT_RADIUS = 5;
 const UNIT_MOVE_SPEED = 2;
+const UNIT_MAX_DIST_FROM_TARGET = 50;
 
 function unitClass() {
     this.x = 0;
@@ -29,6 +30,11 @@ function unitClass() {
             this.x = this.destX;
             this.y = this.destY;
         }
+    }
+
+    this.setDest = function(nearX, nearY) {
+        this.destX = nearX + Math.random() * UNIT_MAX_DIST_FROM_TARGET;
+        this.destY = nearY + Math.random() * UNIT_MAX_DIST_FROM_TARGET;
     }
 
     this.draw = function() {
