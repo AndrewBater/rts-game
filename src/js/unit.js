@@ -54,6 +54,11 @@ function unitClass() {
                 this.destX = this.x;
                 this.destY = this.y;
             }
+        } else if (this.playerControlled == false) {
+            if (Math.random() < 0.02) {
+                this.destX = this.x - Math.random() * 70;
+                this.destY = this.y - Math.random() * 70;
+            }
         }
         var deltaX = this.destX - this.x;
         var deltaY = this.destY - this.y;
