@@ -5,18 +5,36 @@ const UNIT_SELECTED_RADIUS = UNIT_RADIUS + 3;
 const UNIT_MOVE_SPEED = 2;
 const UNIT_MAX_DIST_FROM_TARGET = 50;
 const UNIT_RANKS_SPACING = UNIT_RADIUS * 3;
+const UNIT_EDGE_MARGIN = 5;
 
 function unitClass() {
     this.x = 0;
     this.y = 0;
     this.destX = 0;
     this.destY = 0;
+    this.playerControlled = false;
+    this.colour = "white";
+    this.isAlive = false;
 
-    this.reset = function() {
-        this.x = Math.random() * canvas.width/4;
-        this.y = Math.random() * canvas.height/4;
-        this.destX = canvas.width/2;
-        this.destY = canvas.height/2;
+    this.reset = function(playerTeam) {
+        this.playerControlled = playerTeam;
+        this.isAlive = true;
+
+        if (this.playerControlled) {
+            this.x = this.destX = Math.random() * canvas.width/4;
+            this.y = this.destY = Math.random() * canvas.height/4;
+            if (this.x < UNIT_EDGE_MARGIN) {
+                this.destX += UNIT_EDGE_MARGIN;
+            }
+            if (this.y < UNIT_EDGE_MARGIN) {
+                this.destY += UNIT_EDGE_MARGIN;
+            }
+            this.colour = "red";
+        } else {
+            this.x = this.destX = canvas.width - (Math.random() * canvas.width/4);
+            this.y = this.destY = canvas.height - (Math.random() * canvas.height/4);
+            this.colour = "blue";
+        }
     }
 
     this.move = function() {
@@ -64,7 +82,9 @@ function unitClass() {
     }
 
     this.draw = function() {
-        paintCircle(this.x, this.y, UNIT_RADIUS, "white");
+        if (this.isAlive) {
+            paintCircle(this.x, this.y, UNIT_RADIUS, this.colour);
+        }
     }
 
     this.drawSelectedBox = function() {
