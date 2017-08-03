@@ -40,8 +40,9 @@ function startDrag(evt) {
 function sendUnits(evt) {
     if (!isSelecting) {
         var mousePos = findCurrentMousePosition(evt);
+        var unitFormationCols = Math.floor(Math.sqrt(selectedUnits.length + 2));
         for(var i=0; i < selectedUnits.length; i++) {
-            selectedUnits[i].setDest(mousePos.x, mousePos.y);
+            selectedUnits[i].setDest(mousePos.x, mousePos.y, i, unitFormationCols);
         }
     }
 }

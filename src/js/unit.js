@@ -4,6 +4,7 @@ const UNIT_RADIUS = 5;
 const UNIT_SELECTED_RADIUS = UNIT_RADIUS + 3;
 const UNIT_MOVE_SPEED = 2;
 const UNIT_MAX_DIST_FROM_TARGET = 50;
+const UNIT_RANKS_SPACING = UNIT_RADIUS * 3;
 
 function unitClass() {
     this.x = 0;
@@ -33,9 +34,11 @@ function unitClass() {
         }
     }
 
-    this.setDest = function(nearX, nearY) {
-        this.destX = nearX + Math.random() * UNIT_MAX_DIST_FROM_TARGET;
-        this.destY = nearY + Math.random() * UNIT_MAX_DIST_FROM_TARGET;
+    this.setDest = function(nearX, nearY, formationPosition, formationDimensions) {
+        var colNum = formationPosition % formationDimensions;
+        var rowNum = Math.floor(formationPosition / formationDimensions);
+        this.destX = nearX + colNum * UNIT_RANKS_SPACING;
+        this.destY = nearY + rowNum * UNIT_RANKS_SPACING;
     }
 
     this.isInArea = function(x1, y1, x2, y2) {

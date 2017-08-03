@@ -1,6 +1,6 @@
 "use strict";
 
-const PLAYER_START_UNITS = 9;
+const PLAYER_START_UNITS = 20;
 var canvas, context, intervalId;
 var playerUnits = [];
 var selectedUnits = [];
