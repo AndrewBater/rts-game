@@ -31,3 +31,11 @@ function paintOutlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {
     context.rect(topLeftX, topLeftY, boxWidth - topLeftX, boxHeight - topLeftY);
     context.stroke(); 
 }
+
+function paintLine(topLeftX, topLeftY, bottomRightX, bottomRightY, colour) {
+    context.strokeStyle = colour;
+    context.beginPath();
+    context.moveTo(topLeftX, topLeftY);
+    context.lineTo(bottomRightX, bottomRightY);
+    context.stroke();
+}

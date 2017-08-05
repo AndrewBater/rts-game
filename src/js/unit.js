@@ -17,11 +17,13 @@ function unitClass() {
     this.colour = "white";
     this.isAlive = false;
     this.target = null;
+    this.isFiring = false;
 
     this.reset = function(playerTeam) {
         this.playerControlled = playerTeam;
         this.isAlive = true;
         this.target = null;
+        this.isFiring = false;
 
         if (this.playerControlled) {
             this.x = this.destX = Math.random() * canvas.width/4;
@@ -44,12 +46,14 @@ function unitClass() {
         if (this.target != null) {
             if (this.target.isAlive == false) {
                 this.target = null;
+                this.isFiring = false;
                 this.destX = this.x;
                 this.destY = this.y;
             } else if (this.distanceFrom(this.target.x, this.target.y) > UNIT_ATTACK_RANGE) {
                 this.destX = this.target.x;
                 this.destY = this.target.y;
             } else {
+                this.isFiring = true;
                 this.target.isAlive = false;
                 this.destX = this.x;
                 this.destY = this.y;
@@ -117,6 +121,9 @@ function unitClass() {
     this.draw = function() {
         if (this.isAlive) {
             paintCircle(this.x, this.y, UNIT_RADIUS, this.colour);
+            if (this.target != null && this.isFiring) {
+                paintLine(this.x, this.y, this.target.x, this.target.y, "white");
+            }
         }
     };
 
